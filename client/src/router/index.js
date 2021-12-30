@@ -1,15 +1,17 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-
-Vue.use(Router)
-
-export default new Router({
-  routes: [
+import VueRouter from 'vue-router';
+const routes = [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+        path: '/youtube',
+        name: 'Youtube',
+        component: () => import('../pages/youtube/YoutubePage'),
+        meta: {requiresAuth: true},
     }
-  ]
-})
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    saveScrollPosition: true,
+    routes
+});
+
+export default router;

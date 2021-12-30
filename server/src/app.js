@@ -1,20 +1,32 @@
-// "start": "nodemon src/app.js --exec  \"npm run lint && node\"",
-// "lint": "eslint src/**/*.js"
-console.log("server start..."); 
+// express
 const express = require('express');
+const app = express();
+const port = 3001;
+
+//functions
+const jsonParserSettings = require('./utils/getDefaultData').jsonParserSettings(); 
+
+// modules
+const path = require('path');
+const fs = require('fs');
+
+// packages
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const morgan = require('morgan');
+
+app.use(cors({origin: (origin, callback) => callback(null, true), optionsSuccessStatus: 200, credentials: true}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true, parameterLimit: 1000000}));
+
+// App Routes
+const youtubeRoutes = require('./routes/youtube');
+const wikipediaRoutes = require('./routes/wikipedia');
+
+// App routes
+app.use('/youtube', bodyParser.json(jsonParserSettings), youtubeRoutes);
+app.use('/wikipedia', bodyParser.json(jsonParserSettings), wikipediaRoutes);
 
 
-const app = express();
-app.use(morgan('combined'));
-app.use(bodyParser.json());
-app.use(cors());
+app.listen(port, () => {
+    console.log(`Node Server listening on port: ${port}`, '\n');
+}).setTimeout(50000000);
 
-app.get('/status', (req,res) => {
-    res.send({
-        message : 'hello world'
-    })
-});
-app.listen(8081);
