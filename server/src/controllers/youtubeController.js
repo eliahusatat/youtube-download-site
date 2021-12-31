@@ -10,7 +10,7 @@ const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
 const service = google.youtube({
     version : 'v3',
     auth : process.env.API_KEY
-})
+}) 
   
 const search = async (req, res) => {
     console.log('in youtuber')
