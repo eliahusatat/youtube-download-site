@@ -10,10 +10,8 @@ const jsonParserSettings = require('./utils/getDefaultData').jsonParserSettings(
 const path = require('path');
 const fs = require('fs');
  
-require('dotenv').config({path: { path: 'C:\Users\אליהו סתת\Desktop\my site\youtube-download-site\server\src\a.env' }});
+require('dotenv').config();
 const port = process.env.PORT;
-console.log(process.env.PORT);
-console.log(process.env.API_KEY);
 
 // packages
 const bodyParser = require('body-parser');
