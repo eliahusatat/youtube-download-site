@@ -9,6 +9,7 @@
                 :title="v.title"
                 :views="v.views"
                 :text-side=true
+                :vertical="false"
                 @click.native="viewVideo(v.videoId)"
         ></Video>
     </v-container>

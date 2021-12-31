@@ -1,40 +1,49 @@
 <template>
   <div>
-<!--    <v-container>-->
-<!--      <v-row justify="space-around">-->
-        <v-card width="200">
-          <v-img
-              height="100px"
-              :src= "this.imgSrc"
-          >
-           <span class="my-span black white--text" style="  position: absolute;
-  bottom: 4px;
-  right: 4px; ">
-             {{this.duration }}
-            </span>
-          </v-img>
+    <v-container>
+      <div v-if="this.vertical">
+      <v-row >
+         <video-img
+          :duration="this.duration"
+          :img-src="this.imgSrc">
+          </video-img>
+        </v-row>
+        <v-row >
+        <video-text
+          :published-at="this.publishedAt"
+          :title="this.title"
+          :views="this.views">
+          </video-text>
+      </v-row>
+      </div>
+      <div v-else>
+            <v-row >
+         <video-img
+          :duration="this.duration"
+          :img-src="this.imgSrc">
+          </video-img>
+        <video-text
+          :published-at="this.publishedAt"
+          :title="this.title"
+          :views="this.views">
+          </video-text>
+      </v-row>
+      </div>
 
-          <v-card-text class=text-right>
-            <div class="font-weight-bold">
-              {{this.title}}
-            </div>
-          </v-card-text>
-          <v-card-subtitle>
-            views :  {{ this.id }} , {{ this.publishedAt }}
-          </v-card-subtitle>
-        </v-card>
 
-<!--      </v-row>-->
-<!--    </v-container>-->
+      
+    </v-container>
     </div>
 </template>
 
 <script>
-// import VideoText from "./VideoText";
+import VideoText from "./VideoText";
+import VideoImg from "./VideoImg";
 export default {
 name: "Video",
   components: {
-    // VideoText
+     VideoText,
+     VideoImg
   },
   props: {
     title: {
@@ -72,6 +81,10 @@ name: "Video",
     id: {
       type: String,
       default: ''
+    },
+    vertical: {
+      Boolean,
+      default: true
     }
   }
 }

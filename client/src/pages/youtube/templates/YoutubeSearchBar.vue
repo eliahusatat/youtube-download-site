@@ -25,6 +25,8 @@
                       tile
                       class="btn mr-0 ml-0 mb-0 p-0"
                       @click="search"
+                     :loading="searchLoading"
+                     :disabled="searchLoading"
                      >
                     <v-icon left>mdi-magnify</v-icon>
                   </v-btn>
@@ -59,18 +61,22 @@ export default {
   data() {
     return {
       userCreditsBalanceModal: false,
-      isLoading : false,
-      searchText : '',
-      videos : []
+      isLoading: false,
+      searchLoading: false,
+      searchText: '',
+      videos: []
 
     }
   },
   methods: {
-    ...mapActions(['openConfirmModal']),
     async search(){
+      if(this.searchText != ''){
+    this.searchLoading = true;
     await this.$store.dispatch('youtube/searchOnYoutube', {
         "str": this.searchText
       });
+    this.searchLoading = false;
+      }
     },
     async onClickLogo(){
     await this.$store.dispatch('youtube/PopularOnYoutube', {

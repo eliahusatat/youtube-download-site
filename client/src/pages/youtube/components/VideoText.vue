@@ -1,17 +1,23 @@
 <template>
   <div>
-  <v-row>
-    <p>{{this.title}}</p>
-  </v-row>
-  <v-row>
-    <p>{{this.views}} - {{this.publishedAt}}</p>
-  </v-row>
-  </div>
+        <v-card width="200">
+          <v-card-text class=text-right>
+            <div class="font-weight-bold">
+              {{this.title | str_limit(18)}}
+            </div>
+            <div >
+               views :  {{ this.views }} , {{ this.publishedAt }}
+            </div>
+          </v-card-text>
+        </v-card>
+    </div>
 </template>
 
 <script>
 export default {
-  name: "VideoText",
+name: "VideoText",
+  components: {
+  },
   props: {
     title: {
       type: String,
@@ -22,10 +28,6 @@ export default {
       default: '',
     },
     publishedAt: {
-      type: String,
-      default: '',
-    },
-    duration: {
       type: String,
       default: '',
     },
