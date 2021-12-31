@@ -1,6 +1,6 @@
 <template>
   <div>
-        <v-card width="200">
+        <v-card width="200" height="100px">
           <v-img
               height="100px"
               :src= "this.imgSrc"

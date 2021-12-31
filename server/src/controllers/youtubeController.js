@@ -45,13 +45,13 @@ const most_popular = async (req, res) => {
             "part" : ["snippet , contentDetails , statistics"],
             "chart" : "mostPopular",
             "videoCategoryId": 20,
-            "regionCode": "IS",
+            "regionCode": "IL",
             "maxResults" : 40
         });
         let videos = ans.data.items.map(function(element){
             let obj = {
                 videoId: element.id,
-                url : element.snippet.thumbnails.standard.url,
+                url : element.snippet.thumbnails.medium.url,
                 title : element.snippet.title,
                 publishedAt:element.snippet.publishedAt.replace(/(\d+)-(\d+)-(\d+)T(\d+):(\d+):(\d+)Z/, "$3/$2/$1"),
                 duration:ytDurationFormat(element.contentDetails.duration),

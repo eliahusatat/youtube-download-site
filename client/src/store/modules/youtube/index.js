@@ -26,9 +26,9 @@ export default {
             console.error(e)
         }
     },
-    PopularOnYoutube: async ({ commit,dispatch }, body) => {
+    PopularOnYoutube: async ({ commit,dispatch }) => {
         try{
-            const {data} = await MyApi().post('youtube/youtube-most-popular', { "str": body.str});
+            const {data} = await MyApi().post('youtube/youtube-most-popular', { "str": ""});
             if (data.success) {
               dispatch('clearStat')
               commit('SET', { name:'videos',value: data.videos })

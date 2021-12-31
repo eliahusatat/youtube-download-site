@@ -1,6 +1,6 @@
 <template>
-  <div :class="[{'mx-10' : $vuetify.breakpoint.mdAndUp, 'mt-10' : $vuetify.breakpoint.mdAndDown}, 'mx-5 ']">
-<!--    <page-title :title="pageTitle"/>-->
+<div>
+  <!-- <div :class="[{'mx-10' : $vuetify.breakpoint.mdAndUp, 'mt-10' : $vuetify.breakpoint.mdAndDown}, 'mx-5 ']"> -->
     <youtube-search-bar/>
     <videos-grid v-if="this.youtube.popularMode"
         :videos="this.youtube.videos"
@@ -39,12 +39,10 @@ export default {
   data: function () {
     return {
       videos: [],
-      isLoading : false
-
+      isLoading: false
     }
   },
   methods: {
-
 
   },
   computed: {
@@ -54,9 +52,7 @@ export default {
     ...mapState(['youtube'])
   },
   async created() {
-    await this.$store.dispatch('youtube/PopularOnYoutube', {
-      "str": "Batman"
-    });
+    await this.$store.dispatch('youtube/PopularOnYoutube');
   }
 
 };

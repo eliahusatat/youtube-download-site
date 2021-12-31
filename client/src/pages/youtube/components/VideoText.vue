@@ -1,6 +1,6 @@
 <template>
   <div>
-        <v-card width="200">
+        <v-card width="200" height="100px">
           <v-card-text class=text-right>
             <div class="font-weight-bold">
               {{this.title | str_limit(18)}}

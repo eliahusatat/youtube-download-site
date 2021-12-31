@@ -79,9 +79,7 @@ export default {
       }
     },
     async onClickLogo(){
-    await this.$store.dispatch('youtube/PopularOnYoutube', {
-        "str": this.searchText
-      });
+    await this.$store.dispatch('youtube/PopularOnYoutube');
     }
   },
 
