@@ -1,7 +1,7 @@
 // express
 const express = require('express');
 const app = express();
-const port = 3001;
+
 
 //functions
 const jsonParserSettings = require('./utils/getDefaultData').jsonParserSettings(); 
@@ -9,6 +9,11 @@ const jsonParserSettings = require('./utils/getDefaultData').jsonParserSettings(
 // modules
 const path = require('path');
 const fs = require('fs');
+ 
+require('dotenv').config({path: { path: 'C:\Users\אליהו סתת\Desktop\my site\youtube-download-site\server\src\a.env' }});
+const port = process.env.PORT;
+console.log(process.env.PORT);
+console.log(process.env.API_KEY);
 
 // packages
 const bodyParser = require('body-parser');

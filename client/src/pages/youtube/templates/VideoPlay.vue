@@ -2,7 +2,7 @@
 <div>
   <v-container>
     <v-row>
-  <youtube v-if="this.videoId != ''" :video-id="this.videoId" player-width="1280" player-height="640" ref="youtubeVideo"></youtube>
+  <youtube v-if="this.videoId != ''" :video-id="this.videoId" player-width="790" player-height="444" ref="youtubeVideo"></youtube>
   <videos-search-list :videos="this.youtube.videos"/>
     </v-row>
   </v-container>

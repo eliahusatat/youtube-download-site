@@ -11,51 +11,51 @@ export default {
     }
   },
   actions: {
-    searchOnYoutube: async ({ commit }, body) => {
+    searchOnYoutube: async ({ commit,dispatch }, body) => {
       try{
         const { data } = await MyApi().post('youtube/search-on-youtube-new', { "str": body.str});
             console.log(data)
         if (data.success) {
-                // commit('SET_VIDEOS',data.videos);
-            commit('SET', { name:'videos',value: data.videos })
-            commit('SET', { name:'popularMode',value: false })
-            commit('SET', { name:'searchMode',value: true })
-            commit('SET', { name:'choosenVideoId',value: '' })
+          dispatch('clearStat')
+          commit('SET', { name:'videos',value: data.videos })
+          commit('SET', { name:'searchMode',value: true })
         } else{
-            commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', { root: true })
+          console.error('fail searchOnYoutube')        
         }
         } catch(e) {
             console.error(e)
-            commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', { root: true })
         }
     },
-    PopularOnYoutube: async ({ commit }, body) => {
+    PopularOnYoutube: async ({ commit,dispatch }, body) => {
         try{
             const {data} = await MyApi().post('youtube/youtube-most-popular', { "str": body.str});
             if (data.success) {
-                commit('SET', { name:'videos',value: data.videos })
-                commit('SET', { name:'popularMode',value: true })
-                commit('SET', { name:'searchMode',value: false })
-                commit('SET', { name:'choosenVideoId',value: '' })
-                }else{
-                  commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', { root: true })
-                }
+              dispatch('clearStat')
+              commit('SET', { name:'videos',value: data.videos })
+              commit('SET', { name:'popularMode',value: true })
+              }else{
+                console.error('fail PopularOnYoutube')        
+              }
             }catch(e) {
               console.error(e)
-              commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', { root: true })
             }
         },
-        viewVideo: async ({ commit }, id) => {
+        viewVideo: async ({ commit,dispatch }, id) => {
             console.log(id)
             try{
-                commit('SET', { name:'choosenVideoId',value: id })
-                commit('SET', { name:'popularMode',value: false })
-                commit('SET', { name:'searchMode',value: false })
-                commit('SET', { name:'videoMode',value: true })
+              dispatch('clearStat')
+              commit('SET', { name:'choosenVideoId',value: id })
+              commit('SET', { name:'videoMode',value: true })
             } catch (e) {
                 console.error(e)
-                commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true})
             }
+        },
+        clearStat: ({ commit }) => {
+          commit('SET', { name:'choosenVideoId',value: '' })
+          commit('SET', { name:'popularMode',value: false })
+          commit('SET', { name:'searchMode',value: false })
+          commit('SET', { name:'videoMode',value: false })
         }
+
     }
 }

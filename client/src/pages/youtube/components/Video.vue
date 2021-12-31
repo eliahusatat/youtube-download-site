@@ -2,9 +2,9 @@
   <div>
 <!--    <v-container>-->
 <!--      <v-row justify="space-around">-->
-        <v-card width="400">
+        <v-card width="200">
           <v-img
-              height="200px"
+              height="100px"
               :src= "this.imgSrc"
           >
            <span class="my-span black white--text" style="  position: absolute;
