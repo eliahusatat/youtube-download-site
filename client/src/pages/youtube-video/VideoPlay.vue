@@ -1,26 +1,23 @@
 <template>
 <div>
   <v-container>
-    <v-row >
-      <v-col>
-  <youtube v-if="this.videoId != ''" :video-id="this.videoId" player-width="600" player-height="444" ref="youtubeVideo" ></youtube>
- </v-col>
- <v-col>
+    <v-row>
+  <youtube v-if="this.videoId != ''" :video-id="this.videoId" player-width="1280" player-height="640" ref="youtubeVideo"></youtube>
   <videos-search-list :videos="this.youtube.videos"/>
-   </v-col>
     </v-row>
+
   </v-container>
 </div>
 </template>
 
 <script>
-import VideosSearchList from "./VideosSearchList";
+import VideosSearchList from "../../components/VideosSearchList";
 import {mapState} from "vuex";
 
 export default {
   name: 'VideoPlay',
   components : {
-    VideosSearchList
+    VideosSearchList,
   },
   data() {
     return {

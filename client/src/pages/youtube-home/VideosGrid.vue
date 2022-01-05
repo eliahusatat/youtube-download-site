@@ -11,7 +11,11 @@
                                 :views="v.views"
                                 :text-side=true
                                 :id = v.videoId
-                                @click.native="viewVideo(v.videoId)"
+                                :text-width="300"
+                                :img-width="300"
+                                :text-height="100"
+                                :img-height="200"
+                                @click.native="goToVideo(v.videoId)"
                         ></Video>
                 </v-row>
   </v-container>
@@ -19,7 +23,7 @@
 </template>
 
 <script>
-import Video from "../components/Video";
+import Video from "../../components/Video";
 import {mapActions} from "vuex";
 
 export default {
@@ -39,9 +43,12 @@ name: "VideosGrid",
 },
   methods: {
     ...mapActions('youtube',['viewVideo']),
-  //todo add fix for views
+    async goToVideo(videoId){
+      await this.viewVideo(videoId);
+      this.$router.push(`/youtube-video/${videoId}`).catch(()=>{this.$router.push(`/youtube-home`)});
+      }
+    }
   }
-}
 </script>
 
 <style scoped>

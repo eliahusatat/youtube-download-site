@@ -9,7 +9,7 @@ const { auth } = require('googleapis/build/src/apis/abusiveexperiencereport');
 
 const service = google.youtube({
     version : 'v3',
-    auth : 'AIzaSyCD9QB8guBnvCJjgmxM_zIIgZXR-N0QSrA'
+    auth : process.env.API_KEY
     
 })
 

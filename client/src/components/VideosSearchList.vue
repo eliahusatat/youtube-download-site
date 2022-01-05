@@ -10,14 +10,18 @@
                 :views="v.views"
                 :text-side=true
                 :vertical="false"
-                @click.native="viewVideo(v.videoId)"
+                :text-height="textHeight"
+                :text-width="textWidth"
+                :img-height="imgHeight"
+                :img-width="imgWidth"
+                @click.native="goToVideo(v.videoId)"
         ></Video>
     </v-container>
   </div>
 </template>
 
 <script>
-import Video from "../components/Video";
+import Video from "./Video";
 import {mapActions} from "vuex";
 export default {
   name: "VideosSearchList",
@@ -32,10 +36,30 @@ export default {
   props: {
     videos: {
       type: Array
-    }
+    },
+    imgHeight: {
+      type: Number,
+      default: 100,
+    },
+    imgWidth: {
+      type: Number,
+      default: 200,
+    },
+    textHeight: {
+      type: Number,
+      default: 100,
+    },
+    textWidth: {
+      type: Number,
+      default: 200,
+    },
   },
   methods: {
     ...mapActions('youtube',['viewVideo']),
+    async goToVideo(videoId){
+      await this.viewVideo(videoId);
+      this.$router.push(`/youtube-video/${videoId}`);
+    }
   }
 }
 </script>

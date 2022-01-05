@@ -1,61 +1,101 @@
-import MyApi from '../../../pages/youtube/MyApi'
-import { getYoutubeInitState } from '../../../utils/getDefaultData'
+import MyApi from "../../../service/MyApi";
+import {getYoutubeInitState} from '../../../utils/getDefaultData';
+
+
 
 export default {
-  namespaced: true,
-  state: getYoutubeInitState(),
-  getters: {},
-  mutations: {
-    SET: (state, { name, value }) => {
-      state[name] = value
-    }
-  },
-  actions: {
-    searchOnYoutube: async ({ commit,dispatch }, body) => {
-      try{
-        const { data } = await MyApi().post('youtube/search-on-youtube-new', { "str": body.str});
-            console.log(data)
-        if (data.success) {
-          dispatch('clearStat')
-          commit('SET', { name:'videos',value: data.videos })
-          commit('SET', { name:'searchMode',value: true })
-        } else{
-          console.error('fail searchOnYoutube')        
-        }
-        } catch(e) {
-            console.error(e)
+    namespaced: true,
+    state : getYoutubeInitState(),
+    getters: {},
+    mutations: {
+        SET : (state, {name, value}) => {
+            state[name] = value;
         }
     },
-    PopularOnYoutube: async ({ commit,dispatch }) => {
-        try{
-            const {data} = await MyApi().post('youtube/youtube-most-popular', { "str": ""});
+    actions: {
+        searchOnYoutube: async ({ commit }, body) => {
+          try{
+            const {data} = await MyApi().post('youtube/search-on-youtube-new', { "str": body.str});
             if (data.success) {
-              dispatch('clearStat')
-              commit('SET', { name:'videos',value: data.videos })
-              commit('SET', { name:'popularMode',value: true })
-              }else{
-                console.error('fail PopularOnYoutube')        
-              }
-            }catch(e) {
-              console.error(e)
-            }
-        },
-        viewVideo: async ({ commit,dispatch }, id) => {
-            console.log(id)
-            try{
-              dispatch('clearStat')
-              commit('SET', { name:'choosenVideoId',value: id })
-              commit('SET', { name:'videoMode',value: true })
-            } catch (e) {
-                console.error(e)
-            }
-        },
-        clearStat: ({ commit }) => {
-          commit('SET', { name:'choosenVideoId',value: '' })
-          commit('SET', { name:'popularMode',value: false })
-          commit('SET', { name:'searchMode',value: false })
-          commit('SET', { name:'videoMode',value: false })
+                commit('SET', { name:'videos',value: data.videos })
+            } else{
+                console.log('fail searchOnYoutube')
+                console.log(data)
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+                  }
+        } catch (e) {
+            console.error(e);
+            // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
         }
+        },
+        PopularOnYoutube: async ({ commit }, body) => {
+            try{
+                const {data} = await MyApi().post('youtube/youtube-most-popular', { "str": body.str});
+                if (data.success) {
+                    commit('SET', { name:'videos',value: data.videos })
+                } else{
+                    console.log('fail PopularOnYoutube')
+                    console.log(data)
+                    // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+                }
+            } catch (e) {
+                console.error(e);
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+            }
+        },
+        relatedToVideo: async ({ commit }, body) => {
+            try{
+                const {data} = await MyApi().post('youtube/related-to-video', { "video_id": body.video_id});
+                if (data.success) {
+                    commit('SET', { name:'videos',value: data.videos })
+                } else{
+                    console.log('fail relatedToVideo')
+                    console.log(data)
+                    // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+                }
+            } catch (e) {
+                console.error(e);
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+            }
+        },
+        viewVideo: async ({ dispatch }, id) => {
+            try{
+                dispatch('relatedToVideo',{'video_id' : id})
+            } catch (e) {
+                console.error(e);
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+            }
+        },
+        getVideoComments: async (state, video_id) => {
+            try{
+                const {data} = await MyApi().post('youtube/video-comments', { "video_id": video_id});
+                if (data.success) {
+                    return data;
+                } else{
+                    console.log('fail getVideoComments')
+                    console.log(data)
+                    // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+                }
+            } catch (e) {
+                console.error(e);
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+            }
+        },
+        getVideoFullData: async (state, video_id) => {
+            try{
+                const {data} = await MyApi().post('youtube/video-full-data', { "video_id": video_id});
+                if (data.success) {
+                    return data;
+                } else{
+                    console.log('fail getVideoComments')
+                    console.log(data)
+                    // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+                }
+            } catch (e) {
+                console.error(e);
+                // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+            }
+        },
 
     }
 }
