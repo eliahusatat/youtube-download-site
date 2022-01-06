@@ -2,10 +2,10 @@
   <div :class="[{'mx-10' : $vuetify.breakpoint.mdAndUp, 'mt-10' : $vuetify.breakpoint.mdAndDown}, 'mx-5 ']">
   <videos-search-list
                       :videos="this.youtube.videos"
-                      :text-width="800"
-                      :img-width="300"
-                      :text-height="200"
-                      :img-height="200"
+                      :text-width="500"
+                      :img-width="250"
+                      :text-height="140"
+                      :img-height="140"
 
   ></videos-search-list>
   </div>

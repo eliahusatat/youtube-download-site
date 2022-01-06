@@ -1,17 +1,17 @@
 <template>
   <div>
-    <v-container>
+    <v-container class="mx-auto">
       <v-row>
-        <v-col>
-          <v-row>
+        <v-col cols="9">
+          <v-row >
           <v-skeleton-loader :loading="this.youtube.mainLoader"
                              type="image"
-                             height="7780px"
-                             width="1300px"
+                             height="7000px"
+                             width="1000px"
           >
             <youtube
                 :video-id="this.$route.params.videoId"
-                player-width="400"
+                player-width="600"
                 player-height="400"
                 ref="youtubeVideo"></youtube>
           </v-skeleton-loader>
@@ -41,12 +41,14 @@
             :comments="comments_arr"></video-comments>
           </v-row>
         </v-col>
-        <v-col>
+
+        <v-col cols="3">
         <videos-search-list :videos="this.youtube.videos"
-                            :text-width="200"
-                            :img-width="200"
-                            :text-height="120"
-                            :img-height="120"/>
+                            :text-width="140"
+                            :img-width="140"
+                            :text-height="100"
+                            :img-height="100" 
+                            no-gutters/>
         </v-col>
       </v-row>
     </v-container>
@@ -93,9 +95,7 @@ export default {
     const {data} = await this.$store.dispatch('youtube/getVideoFullData', this.$route.params.videoId);
     this.video_data = data;
     console.log(this.video_data.description)
-    const {comments} = await this.$store.dispatch('youtube/getVideoComments', {
-      "videoId": this.$route.params.videoId
-    });
+    const {comments} = await this.$store.dispatch('youtube/getVideoComments',this.$route.params.videoId);
     this.comments_arr = comments;
   }
 }

@@ -62,7 +62,7 @@ const most_popular = async (req, res) => {
             };
         return obj;
         });
-        res.send({success: true, videos:ans.data.items});
+        res.send({success: true, videos:videos});
         logger.info({message:{ step:'end',name: 'youtube', time:new Date()}});
     } catch (e) {
         console.log('in youtuber catch')
@@ -176,7 +176,7 @@ const video_comments = async (req, res) => {
                 }
                 return obj
               });
-            res.send({success: true, videos:comments});
+            res.send({success: true, comments:comments});
     } catch (e) {
         console.log('in v catch')
         console.log(e.message)

@@ -11,8 +11,8 @@
                                 :views="v.views"
                                 :text-side=true
                                 :id = v.videoId
-                                :text-width="300"
-                                :img-width="300"
+                                :text-width="200"
+                                :img-width="200"
                                 :text-height="100"
                                 :img-height="200"
                                 @click.native="goToVideo(v.videoId)"
