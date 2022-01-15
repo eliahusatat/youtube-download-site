@@ -32,11 +32,11 @@
 
 <script>
 export default {
-  name: "videoDescription",
-  data() {
+  name: 'videoDescription',
+  data () {
     return {
-      showMore : false,
-      showMoreText : 'SHOW MORE'
+      showMore: false,
+      showMoreText: 'SHOW MORE'
     }
   },
   props: {
@@ -49,31 +49,31 @@ export default {
     },
     publishedAt: {
       type: String,
-      default: '',
+      default: ''
     },
-    tags : {
-      type : Array,
-      default() {
+    tags: {
+      type: Array,
+      default () {
         return []
       }
     }
   },
   methods: {
-    showMoreClick(){
-      this.showMore = !this.showMore;
-      this.showMoreText = this.showMore ? 'SHOW LESS'  : 'SHOW MORE'
+    showMoreClick () {
+      this.showMore = !this.showMore
+      this.showMoreText = this.showMore ? 'SHOW LESS' : 'SHOW MORE'
       console.log(this.showMoreText)
     }
   },
-  created() {
+  created () {
     console.log(this.description)
   },
-  computed : {
-    myDescription(){
-      if(this.description){
+  computed: {
+    myDescription () {
+      if (this.description) {
         return this.description.replace(/(\\r)*\\n/g, '<br>')
-      }else{
-       return  this.description
+      } else {
+        return this.description
       }
     }
   }

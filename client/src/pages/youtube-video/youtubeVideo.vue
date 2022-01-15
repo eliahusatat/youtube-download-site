@@ -1,18 +1,18 @@
 <template>
   <div>
-    <v-container class="mx-auto">
+    <v-container>
       <v-row>
-        <v-col cols="9">
-          <v-row >
+        <v-col>
+          <v-row>
           <v-skeleton-loader :loading="this.youtube.mainLoader"
                              type="image"
-                             height="7000px"
-                             width="1000px"
+                             height="7780px"
+                             width="1300px"
           >
             <youtube
                 :video-id="this.$route.params.videoId"
-                player-width="600"
-                player-height="400"
+                player-width="1280"
+                player-height="640"
                 ref="youtubeVideo"></youtube>
           </v-skeleton-loader>
           </v-row>
@@ -38,17 +38,12 @@
           </v-row>
           <v-row>
             <video-comments
-            :comments="comments_arr"></video-comments>
+            :comments="comments_arr"
+            :comment-num="video_data.commentCount"></video-comments>
           </v-row>
         </v-col>
-
-        <v-col cols="3">
-        <videos-search-list :videos="this.youtube.videos"
-                            :text-width="140"
-                            :img-width="140"
-                            :text-height="100"
-                            :img-height="100" 
-                            no-gutters/>
+        <v-col>
+        <videos-search-list :videos="this.youtube.videos"/>
         </v-col>
       </v-row>
     </v-container>
@@ -56,24 +51,24 @@
 </template>
 
 <script>
-import VideosSearchList from "../../components/VideosSearchList";
-import videoInf from "./videoInf";
-import videoDescription from "./videoDescription";
-import videoComments from "./videoComments";
-import {mapState} from "vuex";
+import VideosSearchList from '../../components/VideosSearchList'
+import videoInf from './videoInf'
+import videoDescription from './videoDescription'
+import videoComments from './videoComments'
+import { mapState } from 'vuex'
 
 export default {
-  name: "youtubeVideo",
-  components : {
+  name: 'youtubeVideo',
+  components: {
     VideosSearchList,
     videoInf,
     videoDescription,
     videoComments
   },
-  data() {
+  data () {
     return {
-      isLoading : false,
-      comments_arr : [],
+      isLoading: false,
+      comments_arr: [],
       video_data: {}
     }
   },
@@ -88,15 +83,17 @@ export default {
   methods: {
 
   },
-  async created() {
+  async created () {
     await this.$store.dispatch('youtube/PopularOnYoutube', {
-      "str": "Batman"
-    });
-    const {data} = await this.$store.dispatch('youtube/getVideoFullData', this.$route.params.videoId);
-    this.video_data = data;
+      str: 'Batman'
+    })
+    const { data } = await this.$store.dispatch('youtube/getVideoFullData', this.$route.params.videoId)
+    this.video_data = data
     console.log(this.video_data.description)
-    const {comments} = await this.$store.dispatch('youtube/getVideoComments',this.$route.params.videoId);
-    this.comments_arr = comments;
+    const { comments } = await this.$store.dispatch('youtube/getVideoComments', {
+      videoId: this.$route.params.videoId
+    })
+    this.comments_arr = comments
   }
 }
 </script>

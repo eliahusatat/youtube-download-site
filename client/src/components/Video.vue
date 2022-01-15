@@ -44,11 +44,11 @@
 </template>
 
 <script>
-import VideoText from "./VideoText";
-import VideoImg from "./VideoImg";
-import {mapState} from "vuex";
+import VideoText from './VideoText'
+import VideoImg from './VideoImg'
+import { mapState } from 'vuex'
 export default {
-  name: "Video",
+  name: 'Video',
   components: {
     VideoText,
     VideoImg
@@ -63,35 +63,35 @@ export default {
     },
     views: {
       type: String,
-      default: '',
+      default: ''
     },
     publishedAt: {
       type: String,
-      default: '',
+      default: ''
     },
     duration: {
       type: String,
-      default: '',
+      default: ''
     },
     imgSrc: {
       type: String,
-      default: '',
+      default: ''
     },
     imgHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     imgWidth: {
       type: Number,
-      default: 200,
+      default: 200
     },
     textHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     textWidth: {
       type: Number,
-      default: 200,
+      default: 200
     },
     textSide: {
       type: Boolean,

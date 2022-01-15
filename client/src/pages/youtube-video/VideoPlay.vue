@@ -11,17 +11,17 @@
 </template>
 
 <script>
-import VideosSearchList from "../../components/VideosSearchList";
-import {mapState} from "vuex";
+import VideosSearchList from '../../components/VideosSearchList'
+import { mapState } from 'vuex'
 
 export default {
   name: 'VideoPlay',
-  components : {
-    VideosSearchList,
+  components: {
+    VideosSearchList
   },
-  data() {
+  data () {
     return {
-      isLoading : false
+      isLoading: false
     }
   },
   props: {
@@ -34,7 +34,7 @@ export default {
   },
   methods: {
 
-  },
+  }
 }
 </script>
 

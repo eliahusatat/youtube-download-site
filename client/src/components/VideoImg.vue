@@ -20,28 +20,28 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "VideoImg",
+  name: 'VideoImg',
   computed: {
     ...mapState(['youtube'])
   },
   props: {
     duration: {
       type: String,
-      default: '',
+      default: ''
     },
     imgSrc: {
       type: String,
-      default: '',
+      default: ''
     },
     imgHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     imgWidth: {
       type: Number,
-      default: 200,
+      default: 200
     }
   }
 }

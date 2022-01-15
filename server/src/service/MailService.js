@@ -1,27 +1,23 @@
-const nodemailer = require("nodemailer");
-const {logger} = require('../utils/logger');
+const nodemailer = require('nodemailer')
+const { logger } = require('../utils/logger')
 
-const sendMail = ({from, to, subject, text}) => {
-    const transporter = nodemailer.createTransport({
-        service : "hotmail",
-        auth: {
-            user: 'eliahusatat.youtube@outlook.co.il',
-            pass:  'youtube123'
-        }
-    });
-    return transporter.sendMail({from, to, subject, text}, (error, info) => { 
-        if (error){
-            console.log(error);
-            logger.error({name: 'email error', message: error})
-        }
-           
-    })
-};
+const sendMail = ({ from, to, subject, text }) => {
+  const transporter = nodemailer.createTransport({
+    service: 'hotmail',
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS
+    }
+  })
+  return transporter.sendMail({ from, to, subject, text }, (error, info) => {
+    if (error) {
+      console.log(error)
+      logger.error({ name: 'email error', message: error })
+    }
+  })
+}
 
-
-
-
-//for thesting all the api  send to http://localhost:3001/youtube/mail with this json :
+// for thesting all the api  send to http://localhost:3001/youtube/mail with this json :
 /*
 {
     "from": "<eliahusatat.youtube@outlook.co.il>",
@@ -32,7 +28,7 @@ const sendMail = ({from, to, subject, text}) => {
 }
 */
 
-//for testing in the script node ./service/MailService.js 
+// for testing in the script node ./service/MailService.js
 /* async function main() {
     const transporter = nodemailer.createTransport({
         service : "hotmail",
@@ -59,7 +55,7 @@ transporter.sendMail(mailOptions, function(error, info){
     console.log('Message sent: ' + info.response);
 });
 }
-main().catch(console.error); 
+main().catch(console.error);
 */
 
-module.exports = sendMail;
+module.exports = sendMail

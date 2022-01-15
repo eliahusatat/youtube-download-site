@@ -7,36 +7,35 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import VideosGrid from "./VideosGrid";
+import { mapState } from 'vuex'
+import VideosGrid from './VideosGrid'
 export default {
-  name: "youtubeHome",
+  name: 'youtubeHome',
   components: {
-    VideosGrid,
+    VideosGrid
   },
-data: function () {
-  return {
-  }
-},
-methods: {
+  data: function () {
+    return {
+    }
+  },
+  methods: {
 
-},
-computed: {
-  pageTitle() {
-    return  'YoutubePage';
   },
-...mapState(['youtube'])
-},
-async created() {
-  await this.$store.dispatch('youtube/PopularOnYoutube', {
-    "str": "Batman"
-  });
-}
+  computed: {
+    pageTitle () {
+      return 'YoutubePage'
+    },
+    ...mapState(['youtube'])
+  },
+  async created () {
+    await this.$store.dispatch('youtube/PopularOnYoutube', {
+      str: 'Batman'
+    })
+  }
 }
 </script>
 
 <style>
-
 
 .form-field--tooltip .v-text-field .v-input__append-inner {
   padding-right: 20px;

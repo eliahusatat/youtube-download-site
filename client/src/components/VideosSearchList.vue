@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import Video from "./Video";
-import {mapActions} from "vuex";
+import Video from './Video'
+import { mapActions } from 'vuex'
 export default {
-  name: "VideosSearchList",
+  name: 'VideosSearchList',
   components: {
     Video
   },
@@ -39,26 +39,26 @@ export default {
     },
     imgHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     imgWidth: {
       type: Number,
-      default: 200,
+      default: 200
     },
     textHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     textWidth: {
       type: Number,
-      default: 200,
-    },
+      default: 200
+    }
   },
   methods: {
-    ...mapActions('youtube',['viewVideo']),
-    async goToVideo(videoId){
-      await this.viewVideo(videoId);
-      this.$router.push(`/youtube-video/${videoId}`);
+    ...mapActions('youtube', ['viewVideo']),
+    async goToVideo (videoId) {
+      await this.viewVideo(videoId)
+      this.$router.push(`/youtube-video/${videoId}`)
     }
   }
 }

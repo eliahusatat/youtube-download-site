@@ -6,20 +6,26 @@
         <router-view/>
       </v-fade-transition>
     </v-main>
+    <confirm ref="confirm"/>
   </v-app>
 </template>
 
 <script>
-import YoutubeSearchBar from "./components/YoutubeSearchBar";
+import YoutubeSearchBar from './components/YoutubeSearchBar'
+import Confirm from './components/Confirm'
 export default {
   name: 'App',
 
   components: {
-    YoutubeSearchBar
+    YoutubeSearchBar,
+    Confirm
+  },
+  mounted () {
+    this.$root.$confirm = this.$refs.confirm // set the confirmModal as global
   },
 
   data: () => ({
     //
-  }),
-};
+  })
+}
 </script>

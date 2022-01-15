@@ -1,26 +1,27 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Vuetify from './plugins/vuetify';
+import Vuetify from './plugins/vuetify'
 import store from './store'
-import router from './router';
-import VueRouter from "vue-router";
+import router from './router'
+import VueRouter from 'vue-router'
 import VueYouTubeEmbed from 'vue-youtube-embed'
+import SweetAlertIcons from 'vue-sweetalert-icons'
 
+Vue.use(SweetAlertIcons)
 Vue.config.productionTip = false
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 Vue.use(VueYouTubeEmbed)
 Vue.filter('str_limit', function (value, size) {
-  if (!value) return '';
-  value = value.toString();
+  if (!value) return ''
+  value = value.toString()
 
   if (value.length <= size) {
-    return value;
+    return value
   }
-  return value.substr(0, size) + '...';
-});
+  return value.substr(0, size) + '...'
+})
 
-
-new Vue({
+export const app = new Vue({
   store,
   vuetify: Vuetify,
   router,

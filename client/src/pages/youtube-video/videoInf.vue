@@ -18,7 +18,7 @@
 
 <script>
 export default {
-  name: "videoInf",
+  name: 'videoInf',
   props: {
     title: {
       type: String,
@@ -26,15 +26,15 @@ export default {
     },
     views: {
       type: String,
-      default: '',
+      default: ''
     },
     publishedAt: {
       type: String,
-      default: '',
+      default: ''
     },
-    tags : {
-      type : Array,
-      default() {
+    tags: {
+      type: Array,
+      default () {
         return []
       }
     }

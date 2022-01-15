@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
+import { mapState } from 'vuex'
 export default {
-  name: "VideoText",
+  name: 'VideoText',
   components: {},
   computed: {
     ...mapState(['youtube'])
@@ -32,19 +32,19 @@ export default {
     },
     views: {
       type: String,
-      default: '',
+      default: ''
     },
     publishedAt: {
       type: String,
-      default: '',
+      default: ''
     },
     textHeight: {
       type: Number,
-      default: 100,
+      default: 100
     },
     textWidth: {
       type: Number,
-      default: 200,
+      default: 200
     }
   }
 }

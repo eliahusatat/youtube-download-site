@@ -1,12 +1,12 @@
 
 const apiHostsMap = { // ENDPOINTS
-    'local': 'http://localhost:3001/',
-};
+  local: 'http://localhost:3001/'
+}
 
-const backEndUrl = apiHostsMap.local;
+const backEndUrl = apiHostsMap.local
 
 module.exports = {
-    backEndUrl
-};
+  backEndUrl
+}
 
-console.log(`PHP SERVER IS ON  ${backEndUrl}`);
+console.log(`PHP SERVER IS ON  ${backEndUrl}`)

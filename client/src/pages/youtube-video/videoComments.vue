@@ -2,7 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
-        65 Comments
+        {{ commentNum }} Comments
       </v-col>
       <v-col>
         SORT BY
@@ -33,18 +33,22 @@
 </template>
 
 <script>
-import VideoCommentItem from "./VideoCommentItem";
+import VideoCommentItem from './VideoCommentItem'
 export default {
-  name: "videoComments",
+  name: 'videoComments',
   components: {
     VideoCommentItem
   },
-  props : {
+  props: {
     comments: {
-      type :Array,
-      default : () =>{
-        return[]
+      type: Array,
+      default: () => {
+        return []
       }
+    },
+    commentNum: {
+      type: String,
+      default: ''
     }
   }
 }

@@ -48,7 +48,7 @@
                   max-height="80"
                   max-width="100"
                   class="youtube-logo"
-                  @click.stop="onClickLogo"
+                  @click.stop="testConfirmModalDate"
                   src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo-2017-present.jpg"
                   >
               </v-img>
@@ -61,51 +61,106 @@
       </v-toolbar>
     </v-app-bar>
 
-
-
 <!--  </div>-->
 </template>
 <script>
-import {mapActions,mapState} from "vuex";
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'YoutubeSearchBar',
-  data() {
+  data () {
     return {
       userCreditsBalanceModal: false,
-      isLoading : false,
+      isLoading: false,
       searchLoading: false,
-      searchText : '',
-      videos : []
+      searchText: '',
+      videos: []
 
     }
   },
   methods: {
     ...mapActions(['openConfirmModal']),
-    async search(){
-      if(this.searchText != '' && this.$route.params.searchQuery != this.searchText){
-        this.$store.commit('youtube/SET',  { name:'mainLoader',value: true })
-        this.searchLoading = true;
+    async search () {
+      if (this.searchText !== '' && this.$route.params.searchQuery !== this.searchText) {
+        this.$store.commit('youtube/SET', { name: 'mainLoader', value: true })
+        this.searchLoading = true
         await this.$store.dispatch('youtube/searchOnYoutube', {
-          "str": this.searchText
-        });
-        this.searchLoading = false;
-        this.$store.commit('youtube/SET',  { name:'mainLoader',value: false })
-        this.$router.push(`/youtube-search/${this.searchText||''}`).catch(()=>{this.$router.push(`/youtube-home`)});
+          str: this.searchText
+        })
+        this.searchLoading = false
+        this.$store.commit('youtube/SET', { name: 'mainLoader', value: false })
+        this.$router.push(`/youtube-search/${this.searchText || ''}`).catch(() => { this.$router.push('/youtube-home') })
       }
     },
-    async onClickLogo() {
-      this.$store.commit('youtube/SET', {name: 'mainLoader', value: true})
-      await this.$store.dispatch('youtube/PopularOnYoutube', {
-        "str": this.searchText
-      });
-      this.$store.commit('youtube/SET', {name: 'mainLoader', value: false})
-      if(this.$route.matched.some(({ name }) => name !== 'youtube-home')){
-      this.$router.push(`/youtube-home`);
-      }
+    async onClickLogo () {
+      // this.$store.commit('youtube/SET', {name: 'mainLoader', value: true})
+      // await this.$store.dispatch('youtube/PopularOnYoutube', {
+      //   "str": this.searchText
+      // });
+      // this.$store.commit('youtube/SET', {name: 'mainLoader', value: false})
+      // if(this.$route.matched.some(({ name }) => name !== 'youtube-home')){
+      // this.$router.push(`/youtube-home`);
+      // }
+
+      // error with some options
+      // this.$store.commit('OPEN_CONFIRM_MODAL', {
+      //   message: 'errorValidateNumber',
+      //   secondDynamicString: 'secondDynamicString',
+      //   type: 'error',
+      //   title: 'errorTitle'
+      // }, {root: true})
+
+      // success
+      // this.$store.commit('SET_SUCCESS_MODAL', {
+      //   message: 'successfullyAction',
+      // }, {root: true});
+
+      // error
+      // this.$store.commit('SET_ERROR_MODAL', 'errorCreatingCampaign', {root: true});
+
+      // warning
+      // this.$store.commit('SET_WARNING_MODAL', {message: 'reportAlreadyCreatedInfo'}, {root: true})
+
+      // info
+      // this.$store.commit('OPEN_CONFIRM_MODAL', {
+      //   message: 'errorValidateNumber',
+      //   secondDynamicString: 'secondDynamicString',
+      //   title: 'errorTitle'
+      // }, {root: true})
+
+    },
+    async testConfirmModal () {
+      const isUserOpenShortLinkModal = await this.openConfirmModal({
+        okButton: { text: 'yes', icon: 'mdi-check', color: 'success' },
+        cancelButton: { text: 'cancel', icon: 'mdi-close', color: 'error' },
+        message: 'testConfirmModal',
+        isActionButtons: true
+      })
+      if (isUserOpenShortLinkModal) { console.log('true') } else { console.log('false') }
+      return isUserOpenShortLinkModal
+    },
+    async testConfirmModalText () {
+      const listName = await this.openConfirmModal({
+        message: 'testConfirmModal',
+        isInputMode: true,
+        inputType: 'addNewContactList'
+      })
+      console.log(listName)
+    },
+    async testConfirmModalDate () {
+      const selectedDate = await this.openConfirmModal({
+        message: 'testConfirmModalDate',
+        title: 'testConfirmModalDate',
+        isDatePickerMode: true,
+        isInputMode: true,
+        isTextFieldMode: false,
+        inputButtonText: 'update',
+        inputButtonIcon: 'mdi-calendar-arrow-left'
+      })
+      console.log(selectedDate)
     }
   },
-  computed:{
+  computed: {
     ...mapState(['youtube'])
   }
 
@@ -122,6 +177,5 @@ export default {
   border-radius: 0;
   margin-bottom: 100px;
 }
-
 
 </style>
