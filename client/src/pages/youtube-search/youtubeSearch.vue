@@ -6,8 +6,11 @@
                       :img-width="300"
                       :text-height="200"
                       :img-height="200"
-
+                      v-if="this.youtube.videos.length > 0"
   ></videos-search-list>
+    <div v-else>
+      {{$t('noVideosFoundInSearch', this.$route.params.searchQuery)}}
+    </div>
   </div>
 </template>
 

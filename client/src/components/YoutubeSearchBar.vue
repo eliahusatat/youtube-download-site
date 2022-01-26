@@ -1,81 +1,75 @@
 <template>
 <!--  <div v-frag>-->
     <!-- Main App Nav-->
-    <v-app-bar app  >
+<!--  <v-container fluid>-->
+<!--    <v-row class="red">-->
+    <v-app-bar app>
       <v-toolbar>
-        <template >
-
-          <v-row no-gutters>
-
-            <v-col  sm="4">
-
-            </v-col >
-            <v-col sm="7">
+        <v-toolbar-items>
+              <!--        Lang switcher-->
+              <language-switcher-menu/>
+        </v-toolbar-items>
+        <v-spacer/>
+        <v-toolbar-items>
               <v-skeleton-loader :loading="this.youtube.mainLoader"
                                  type="article"
                                  max-height="60px">
-              <v-container>
+                <div>
                 <v-text-field
                     placeholder="Search"
                     solo
-                    class="text-field"
+                    class="text-field mb-6 mx-auto"
                     outlined
                     clearable
                     dense
                     @keyup.enter="search"
                     v-model="searchText">
-                <template v-slot:append>
-                  <v-btn
-                      depressed
-                      tile
-                      class="btn mr-0 ml-0 mb-0 p-0"
-                      @click="search"
-                      :loading="searchLoading"
-                      :disabled="searchLoading"
-                     >
-                    <v-icon left>mdi-magnify</v-icon>
-                  </v-btn>
-                </template>
+                  <template v-slot:append>
+                    <v-btn
+                        depressed
+                        tile
+                        class="btn mr-0 ml-0 mb-0 p-0 float-right"
+                        @click="search"
+                        :loading="searchLoading"
+                        :disabled="searchLoading"
+                    >
+                      <v-icon left>mdi-magnify</v-icon>
+                    </v-btn>
+                  </template>
                 </v-text-field>
-              </v-container>
+                </div>
             </v-skeleton-loader>
-            </v-col>
-            <v-col  sm="1">
-              <v-skeleton-loader :loading="this.youtube.mainLoader"
-                                 type="image"
-                                 max-height="60px">
-              <v-img
-                  max-height="80"
-                  max-width="100"
-                  class="youtube-logo"
-                  @click.stop="testConfirmModalDate"
-                  src="https://logos-world.net/wp-content/uploads/2020/04/YouTube-Logo-2017-present.jpg"
-                  >
-              </v-img>
-              </v-skeleton-loader>
-              </v-col>
-
-          </v-row>
-
-        </template>
+        </v-toolbar-items>
+            <v-spacer/>
+        <v-toolbar-items>
+              <icon-and-drawer></icon-and-drawer>
+        </v-toolbar-items>
       </v-toolbar>
     </v-app-bar>
+<!--    </v-row>-->
+<!--  </v-container>-->
 
 <!--  </div>-->
 </template>
 <script>
 import { mapActions, mapState } from 'vuex'
+import LanguageSwitcherMenu from './LanguageSwitcherMenu'
+import IconAndDrawer from './IconAndDrawer'
 
 export default {
   name: 'YoutubeSearchBar',
+  components: {
+    LanguageSwitcherMenu,
+    IconAndDrawer
+  },
   data () {
     return {
       userCreditsBalanceModal: false,
       isLoading: false,
       searchLoading: false,
       searchText: '',
-      videos: []
-
+      videos: [],
+      testN: true
     }
   },
   methods: {
@@ -91,73 +85,6 @@ export default {
         this.$store.commit('youtube/SET', { name: 'mainLoader', value: false })
         this.$router.push(`/youtube-search/${this.searchText || ''}`).catch(() => { this.$router.push('/youtube-home') })
       }
-    },
-    async onClickLogo () {
-      // this.$store.commit('youtube/SET', {name: 'mainLoader', value: true})
-      // await this.$store.dispatch('youtube/PopularOnYoutube', {
-      //   "str": this.searchText
-      // });
-      // this.$store.commit('youtube/SET', {name: 'mainLoader', value: false})
-      // if(this.$route.matched.some(({ name }) => name !== 'youtube-home')){
-      // this.$router.push(`/youtube-home`);
-      // }
-
-      // error with some options
-      // this.$store.commit('OPEN_CONFIRM_MODAL', {
-      //   message: 'errorValidateNumber',
-      //   secondDynamicString: 'secondDynamicString',
-      //   type: 'error',
-      //   title: 'errorTitle'
-      // }, {root: true})
-
-      // success
-      // this.$store.commit('SET_SUCCESS_MODAL', {
-      //   message: 'successfullyAction',
-      // }, {root: true});
-
-      // error
-      // this.$store.commit('SET_ERROR_MODAL', 'errorCreatingCampaign', {root: true});
-
-      // warning
-      // this.$store.commit('SET_WARNING_MODAL', {message: 'reportAlreadyCreatedInfo'}, {root: true})
-
-      // info
-      // this.$store.commit('OPEN_CONFIRM_MODAL', {
-      //   message: 'errorValidateNumber',
-      //   secondDynamicString: 'secondDynamicString',
-      //   title: 'errorTitle'
-      // }, {root: true})
-
-    },
-    async testConfirmModal () {
-      const isUserOpenShortLinkModal = await this.openConfirmModal({
-        okButton: { text: 'yes', icon: 'mdi-check', color: 'success' },
-        cancelButton: { text: 'cancel', icon: 'mdi-close', color: 'error' },
-        message: 'testConfirmModal',
-        isActionButtons: true
-      })
-      if (isUserOpenShortLinkModal) { console.log('true') } else { console.log('false') }
-      return isUserOpenShortLinkModal
-    },
-    async testConfirmModalText () {
-      const listName = await this.openConfirmModal({
-        message: 'testConfirmModal',
-        isInputMode: true,
-        inputType: 'addNewContactList'
-      })
-      console.log(listName)
-    },
-    async testConfirmModalDate () {
-      const selectedDate = await this.openConfirmModal({
-        message: 'testConfirmModalDate',
-        title: 'testConfirmModalDate',
-        isDatePickerMode: true,
-        isInputMode: true,
-        isTextFieldMode: false,
-        inputButtonText: 'update',
-        inputButtonIcon: 'mdi-calendar-arrow-left'
-      })
-      console.log(selectedDate)
     }
   },
   computed: {

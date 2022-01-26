@@ -1,7 +1,7 @@
 <template>
   <div>
         <v-container>
-                <v-row justify="space-around">
+                <v-row justify="space-around" v-if="this.videos.length > 0">
                         <Video  v-for="(v, index) in this.videos"
                                 :key = index
                                 :duration="v.duration"
@@ -18,6 +18,9 @@
                                 @click.native="goToVideo(v.videoId)"
                         ></Video>
                 </v-row>
+          <v-row justify="space-around" v-else>
+            {{$t('noVideosFound')}}
+          </v-row>
   </v-container>
   </div>
 </template>

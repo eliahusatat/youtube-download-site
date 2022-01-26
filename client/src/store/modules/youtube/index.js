@@ -1,5 +1,5 @@
 import MyApi from '../../../service/MyApi'
-import { getYoutubeInitState } from '@/utils/getDefaultData'
+import { getYoutubeInitState } from '../../../utils/getDefaultData'
 
 export default {
   namespaced: true,
@@ -29,21 +29,17 @@ export default {
     PopularOnYoutube: async ({ commit }, body) => {
       try {
         const { data } = await MyApi().post('youtube/youtube-most-popular', { str: body.str })
-        console.log(data)
         if (data.success) {
-          console.log('in success')
-          console.log(data.videos)
           commit('SET', { name: 'videos', value: data.videos })
         } else {
+          commit('SET', { name: 'videos', value: [] })
           console.log('fail PopularOnYoutube')
           console.log(data)
-          // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
         }
-        commit('OPEN_CONFIRM_MODAL', { message: 'otpOffSuccessfully' }, { root: true })
       } catch (e) {
-        commit('OPEN_CONFIRM_MODAL', { message: 'otpOffSuccessfully' }, { root: true })
+        commit('SET', { name: 'videos', value: [] })
         console.error(e)
-        // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
+        commit('SET_ERROR_MODAL', 'errorPopularOnYoutube', { root: true })
       }
     },
     relatedToVideo: async ({ commit }, body) => {
@@ -52,11 +48,13 @@ export default {
         if (data.success) {
           commit('SET', { name: 'videos', value: data.videos })
         } else {
+          commit('SET', { name: 'videos', value: [] })
           console.log('fail relatedToVideo')
           console.log(data)
           // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
         }
       } catch (e) {
+        commit('SET', { name: 'videos', value: [] })
         console.error(e)
         // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
       }
@@ -69,9 +67,9 @@ export default {
         // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
       }
     },
-    getVideoComments: async (state, videoId) => {
+    getVideoComments: async (state, video_id) => {
       try {
-        const { data } = await MyApi().post('youtube/video-comments', { video_id: videoId })
+        const { data } = await MyApi().post('youtube/video-comments', { video_id: video_id })
         if (data.success) {
           return data
         } else {
@@ -84,9 +82,9 @@ export default {
         // commit('SET_ERROR_MODAL', 'errorDeleteBlockedContact', {root: true});
       }
     },
-    getVideoFullData: async (state, videoId) => {
+    getVideoFullData: async (state, video_id) => {
       try {
-        const { data } = await MyApi().post('youtube/video-full-data', { video_id: videoId })
+        const { data } = await MyApi().post('youtube/video-full-data', { video_id: video_id })
         if (data.success) {
           return data
         } else {

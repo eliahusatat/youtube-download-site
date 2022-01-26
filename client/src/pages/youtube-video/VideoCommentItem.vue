@@ -73,7 +73,7 @@ export default {
       return this.comment.text && this.comment.text.toString().length > this.normalTextSize
     },
     showMoreBtnText () {
-      return this.showMore ? 'Read more' : 'Show less'
+      return this.showMore ? this.$t('showLess1') : this.$t('readMore')
     }
   },
   methods: {

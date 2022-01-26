@@ -27,7 +27,7 @@ export const getDefaultConfirmModalData = () => {
     secondDynamicString: null,
     thirdDynamicString: null,
     fourthDynamicString: null,
-    title: '',
+    title: 'supportInfo',
     type: 'info',
     initialDateValue: '',
     initialInputValue: '',
@@ -46,8 +46,17 @@ export const getDefaultConfirmModalData = () => {
 
 export const getAppMainInitState = () => {
   return {
+    navigationDrawer: true,
     isConfirmModalVisible: false,
     confirmModalData: getDefaultConfirmModalData(),
-    notifications: []
+    notifications: [],
+    selected_app_language: 'en'
   }
+}
+
+export const getAppLanguagesOptions = () => {
+  return [
+    { title: 'עברית', isRtl: true, key: 'he', fullKey: 'he-IL', img: () => require('@/assets/he-icon.png') },
+    { title: 'English', isRtl: false, key: 'en', fullKey: 'en-US', img: () => require('@/assets/en-icon.png') }
+  ]
 }

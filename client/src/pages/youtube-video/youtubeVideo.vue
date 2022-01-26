@@ -42,8 +42,11 @@
             :comment-num="video_data.commentCount"></video-comments>
           </v-row>
         </v-col>
-        <v-col>
+        <v-col v-if="this.youtube.videos.length > 0">
         <videos-search-list :videos="this.youtube.videos"/>
+        </v-col>
+        <v-col v-else>
+          {{$t('noRelatedVideosFound')}}
         </v-col>
       </v-row>
     </v-container>
@@ -89,11 +92,10 @@ export default {
     })
     const { data } = await this.$store.dispatch('youtube/getVideoFullData', this.$route.params.videoId)
     this.video_data = data
-    console.log(this.video_data.description)
     const { comments } = await this.$store.dispatch('youtube/getVideoComments', {
       videoId: this.$route.params.videoId
     })
-    this.comments_arr = comments
+    this.comments_arr = comments || []
   }
 }
 </script>

@@ -7,7 +7,7 @@
             {{getIcon}}
           </v-icon>
           <span :class="[{'small-text': true}, 'mx-5']">
-                  {{confirmModalData.title}}
+                  {{$t(confirmModalData.title)}}
                     </span>
         </div>
         <v-spacer></v-spacer>
@@ -32,7 +32,7 @@
 
       <!--  Confirm only Text Mode-->
       <v-row class="pb-5 mx-auto" justify="center" no-gutters>
-        <span class=" md-text px-4"  v-html="confirmModalData.message">
+        <span class=" md-text px-4"  v-html="$t(confirmModalData.message, confirmModalData.secondDynamicString, confirmModalData.thirdDynamicString, confirmModalData.fourthDynamicString)">
                 </span>
       </v-row>
 
@@ -47,7 +47,7 @@
           <v-spacer/>
           <v-row no-gutters>
             <v-btn :block="$vuetify.breakpoint.xsOnly" :color="confirmModalData.cancelButton.color" @click="clickNo" rounded text>
-              {{confirmModalData.cancelButton.text}}
+              {{$t(confirmModalData.cancelButton.text)}}
               <v-icon right>
                 {{confirmModalData.cancelButton.icon}}
               </v-icon>
@@ -74,6 +74,7 @@
             </v-text-field>
 
             <date-and-time-picker
+                :label="$t('fromDate')"
                 :selected-date="selectedDate"
                 @clearDate="selectedDate = ''"
                 v-if="confirmModalData.isDatePickerMode"
@@ -90,7 +91,7 @@
                 block
                 color="success"
             >
-              {{confirmModalData.inputButtonText}}
+              {{$t(confirmModalData.inputButtonText)}}
               <v-icon right>{{confirmModalData.inputButtonIcon}}</v-icon>
             </v-btn>
           </v-col>
@@ -159,9 +160,7 @@ export default {
       if (typeof this.resolve === 'function') {
         this.resolve(false)
         this.resetModal()
-      } else {
-        this.resetModal()
-      }
+      } else { this.resetModal() }
     },
     clickOnInputButton () {
       if (!this.$refs.form.validate()) return

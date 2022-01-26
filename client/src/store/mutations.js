@@ -1,10 +1,13 @@
-import { getDefaultConfirmModalData } from '@/utils/getDefaultData'
+import { getDefaultConfirmModalData } from '../utils/getDefaultData'
 
+export const SET = (state, { name, value }) => {
+  state[name] = value
+}
+
+// App confirm modal
 export const OPEN_CONFIRM_MODAL = (state, modalData) => {
-  console.log('in OPEN_CONFIRM_MODAL')
   state.confirmModalData = getDefaultConfirmModalData()
   state.isConfirmModalVisible = true
-  // eslint-disable-next-line no-return-assign
   Object.entries(modalData).forEach(el => state.confirmModalData[el[0]] = el[1])
 }
 
@@ -46,3 +49,15 @@ export const SET_WARNING_MODAL = (state, { message, isStringTranslated = true, d
 export const CLOSE_CONFIRM_MODAL = state => state.isConfirmModalVisible = false
 
 export const RESET_CONFIRM_MODAL_DATA = state => state.confirmModalData = getDefaultConfirmModalData()
+
+// App Notifications
+export const PUSH_NOTIFICATION = (state, notification) => {
+  state.notifications.push({
+    ...notification,
+    id: (Math.random().toString(36) + Date.now().toString(36)).substr(2) // crate random ID by date
+  })
+}
+
+export const REMOVE_NOTIFICATION = (state, notificationToRemove) => {
+  state.notifications = state.notifications.filter(notification => notification.id !== notificationToRemove.id)
+}

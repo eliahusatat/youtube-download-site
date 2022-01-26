@@ -2,10 +2,10 @@
   <v-container>
     <v-row>
       <v-col>
-        {{ commentNum }} Comments
+      {{$t('comments',commentNum)}}
       </v-col>
       <v-col>
-        SORT BY
+       {{$t('sortBy')}}
       </v-col>
     </v-row>
     <v-row>
@@ -19,16 +19,23 @@
       </v-col>
       <v-col  cols="11" >
         <v-row >
-          Commenting publicly
+          {{$t('commentingPublicly')}}
         </v-row>
         <v-row>
           <v-divider/>
         </v-row>
       </v-col>
     </v-row>
+    <div  v-if="comments.length > 0">
     <v-row v-for="(comment,i) in comments" :key="i">
        <video-comment-item :comment="comment"></video-comment-item>
     </v-row>
+    </div>
+    <div  v-else>
+    <v-row >
+       {{$t('noCommentsFound')}}
+    </v-row>
+    </div>
   </v-container>
 </template>
 

@@ -115,22 +115,14 @@ export default {
   methods: {
     shortDateForContactList (value) {
       if (!value) return
-      if (/^(\d{2}\/\d{2})$/.test(value) || /^(\d{2})$/.test(value)) {
-        this.displaySelectedDate += '/'
-      }
+      if (/^(\d{2}\/\d{2})$/.test(value) || /^(\d{2})$/.test(value)) { this.displaySelectedDate += '/' }
     },
     now () {
-      if (this.hideTimePicker) {
-        this.setDateOnTextField(moment().format('DD/MM/YY'))
-      } else {
-        this.setDateOnTextField(moment().format('DD/MM/YYYY HH:mm'))
-      }
+      if (this.hideTimePicker) { this.setDateOnTextField(moment().format('DD/MM/YY')) } else { this.setDateOnTextField(moment().format('DD/MM/YYYY HH:mm')) }
     },
     formatDate (date) {
       if (!date) return ''
-      if (this.hideTimePicker) {
-        return moment(date).format('DD/MM/YY')
-      }
+      if (this.hideTimePicker) { return moment(date).format('DD/MM/YY') }
       return moment(date).format('DD/MM/YYYY')
     },
     setDateOnTextField (date) {
@@ -140,16 +132,10 @@ export default {
       this.timePickerMenu = false
     },
     confirm () {
-      if (this.hideTimePicker) {
-        this.setDateOnTextField(this.formatDate(this.pickedDate))
-      } else {
-        this.setDateOnTextField(`${this.formatDate(this.pickedDate)} ${this.pickedHour}`)
-      }
+      if (this.hideTimePicker) { this.setDateOnTextField(this.formatDate(this.pickedDate)) } else { this.setDateOnTextField(`${this.formatDate(this.pickedDate)} ${this.pickedHour}`) }
     },
     showHourPicker () {
-      if (this.hideTimePicker) {
-        this.displaySelectedDate = this.formatDate(this.pickedDate)
-      } else {
+      if (this.hideTimePicker) { this.displaySelectedDate = this.formatDate(this.pickedDate) } else {
         this.activeTab = 1
         this.displaySelectedDate = `${this.formatDate(this.pickedDate)} ${this.pickedHour}`
       }
@@ -161,8 +147,8 @@ export default {
     },
     setPropsDate () {
       this.displaySelectedDate = this.selectedDate // show the date in the input
-      this.pickedDate = moment(this.selectedDate, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD')// extract the date
-      this.pickedHour = moment(this.selectedDate, 'DD/MM/YYYY HH:mm').format('HH:mm')// extract the minutes
+      this.pickedDate = moment(this.selectedDate, 'DD/MM/YYYY HH:mm').format('YYYY-MM-DD') // extract the date
+      this.pickedHour = moment(this.selectedDate, 'DD/MM/YYYY HH:mm').format('HH:mm') // extract the minutes
     },
     setInitDate () {
       if (this.selectedDate) { // in case has a date as props that has been already selected
@@ -171,11 +157,10 @@ export default {
         const date = new Date()
         this.pickedDate = date.toISOString().substr(0, 10)
 
-        if (this.toAddTenMinutes) { // in case limit only 10 minutes from now
-          this.pickedHour = moment().add(12, 'm').format('HH:mm')
-        } else if (this.timeToZeroZero) { // some cases i want the default time to be 00:00
-          this.pickedHour = '00:00'
-        } else { this.pickedHour = date.toString().substr(16, 5) } // current time
+        if (this.toAddTenMinutes) // in case limit only 10 minutes from now
+        { this.pickedHour = moment().add(12, 'm').format('HH:mm') } else if (this.timeToZeroZero) // some cases i want the default time to be 00:00
+        { this.pickedHour = '00:00' } else // current time
+        { this.pickedHour = date.toString().substr(16, 5) }
       }
     }
   },
@@ -184,9 +169,7 @@ export default {
   },
   watch: {
     selectedDate (v) {
-      if (v) {
-        this.setPropsDate()
-      } else this.displaySelectedDate = ''
+      if (v) { this.setPropsDate() } else this.displaySelectedDate = ''
     },
     displaySelectedDate (v) {
       this.$emit('input', v)

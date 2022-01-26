@@ -10,7 +10,7 @@
         {{title}}
       </v-row>
       <v-row>
-        {{views}} views - {{publishedAt}}
+        {{$t('videoInf',views,publishedAt)}}
       </v-row>
     </v-container>
   </div>
